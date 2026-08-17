@@ -12,6 +12,7 @@ import { SavedViewPicker } from '../savedViews/SavedViewPicker';
 import { BulkActions } from './BulkActions';
 import { ChangeDrawer } from './ChangeDrawer';
 import { ChangeFilters } from './ChangeFilters';
+import { ChangeSummary } from './ChangeSummary';
 import { ChangeTable } from './ChangeTable';
 import { useChangeMutations } from './useChangeMutations';
 import { useChangeSelection } from './useChangeSelection';
@@ -54,6 +55,7 @@ export function ChangesPage() {
         <div><SavedViewPicker organizationId={organization.id} ownerId={user.id} filters={filters} onLoad={loadView} /><div className="title-row"><h1>Change requests</h1><span>{changes.total}</span></div><p>Coordinate approvals and production rollouts across your services.</p></div>
         <div className="header-actions"><button className="button secondary" onClick={changes.refresh} disabled={changes.loading}><RefreshCw /> Refresh</button><button className="button primary"><Plus /> New change</button></div>
       </header>
+      <ChangeSummary changes={changes.rows} />
       <section className="card change-card">
         <ChangeFilters filters={filters} onChange={setFilters} />
         {selection.selected.size > 0 && <BulkActions count={selection.selected.size} onClear={selection.clear} onRisk={(risk) => void mutations.bulkRisk(selection.selectedIds, risk)} />}
